@@ -7,34 +7,41 @@ class Node:
         self.link = None
 
 
-# making first obj
-node1 = Node()
-# add data in node1 data type
-node1.data = '사나'
-print(node1.data, end=' ')
-
-node2 = Node()
-node2.data = '쯔위'
-node1.link = node2
-print(node2.data, end=' ')
-
-# printing node1 linked data's detail
-print(node1.link.data, end=' ')
-
-current = node1
-while current.link is not None:
-    current = current.link
+# print nodes head, pre, current
+def printNodes(start):
+    current = start
+    if current == None:
+        return
     print(current.data, end=' ')
+    while current.link != None:
+        current = current.link
+        print(current.data, end=" ")
+    print()
 
-# add new link data
-newnode = Node()
-newnode.data = "I'm new"
-# connacting with link
-newnode.link = node2.link
-node2.link = newnode
-# result checking
-print(newnode.data)
 
-node1.link = newnode.link
-del(node2)
+memory = []
+head, pre, current = None, None, None
+dataArray = ['Pikachu', 'Lightchu', 'Waterchu', 'Firechu', 'Earthchu']
+# making head
+# node1 = Node()
+# node1.data = dataArray[0]
+# head = node1
+# memory.append(node1)
 
+if __name__ == "__main__":
+    # making head
+    node = Node()
+    node.data = dataArray[0]
+    head = node
+    memory.append(node)
+    # making pre
+    for data in dataArray[1:]:
+        pre = node
+        node = Node()
+        node.data = data
+        pre.link = node
+        # pre.link = node  => this will cut the relation between others
+        # result: only pikachu
+        memory.append(node)
+
+    printNodes(head)
