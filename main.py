@@ -17,6 +17,14 @@ def insert_data(idx, pokemon):
 
     pokemons[idx] = pokemon
 
+def add_data(pokemon):
+    """
+    making for updated ver for add data in this section
+    :param pokemon: number type
+    :return: nothing
+    """
+    pokemons.append(None)
+    pokemon[len(pokemons) -1] = pokemons
 
 def del_data(idx):
     if idx < 0 or idx > len(pokemons):
@@ -53,7 +61,8 @@ if __name__ == "__main__":
     # deleting data
     del_data(1)
     print(pokemons)
-
+    add_data('Ceceg')
+    print(pokemons)
 # pokemons = list()  # Empty array
 
 
