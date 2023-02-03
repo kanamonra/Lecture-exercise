@@ -24,13 +24,18 @@ def del_data(idx):
         return
 
     pLen = len(pokemons)
-    pokemons[idx] = None  # 데이터 삭제
+    pokemons[idx] = None  # del data
+    for i in range(idx +1 , pLen):
+        pokemons[i] = None
+    for i in range(idx, 7):
+        # pokemons[i + 1] = pokemons[i]
+        pokemons.pop()
 
-    for i in range(idx + 1, pLen):
-        pokemons[i - 1] = pokemons[i]
-        pokemons[i] = None  # 배열의 맨 마지막 위치 삭제
+    temp = pokemons[:idx]
 
-    del (pokemons[pLen - 1])
+    # del pokemons[i]
+
+    # del (pokemons[pLen - 1])
 
 
 if __name__ == "__main__":
@@ -42,7 +47,7 @@ if __name__ == "__main__":
     print(pokemons)
 
     # deleting data
-    del_data(5)
+    del_data(1)
     print(pokemons)
 
 # pokemons = list()  # Empty array
