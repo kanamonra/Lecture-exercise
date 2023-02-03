@@ -1,4 +1,4 @@
-# pokemon v.01.3
+# pokemon v.01.5
 
 
 pokemons = ["Pikachu", "Eevee", "Dragonite", "Krogre", "Palkia"]
@@ -23,14 +23,18 @@ def del_data(idx):
         print("Out of range!")
         return
 
-    pLen = len(pokemons)
-    pokemons[idx] = None  # del data
-    for i in range(idx +1 , pLen):
-        pokemons[i] = None
-    for i in range(idx, 7):
-        # pokemons[i + 1] = pokemons[i]
-        pokemons.pop()
+# long way
+    # pLen = len(pokemons)
+    # pokemons[idx] = None  # del data
+    # for i in range(idx +1 , pLen):
+    #     pokemons[i] = None
+    # for i in range(idx, 7):
+    #     # pokemons[i + 1] = pokemons[i]
+    #     pokemons.pop()
 
+# short way for delete data
+    for _ in range(len(pokemons)- idx):
+        pokemons.pop()
     temp = pokemons[:idx]
 
     # del pokemons[i]
