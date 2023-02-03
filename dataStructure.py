@@ -1,11 +1,16 @@
 # example 110p 3-2
 # Using polynomial list
 def print_poly(px):
+    """
+    using polumonial list for making a math function
+    :param px: list
+    :return: returning int of result
+    """
     term = len(px) - 1
     poly_str = "P(x) = "
 
     for i in range(len(px)):
-        coef = px[i]  # 계수
+        coef = px[i]  # calculation
         if i > 0 and coef > 0:
             poly_str = poly_str + '+'
         elif coef == 0:
