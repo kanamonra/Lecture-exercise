@@ -1,40 +1,44 @@
-# example 110p 3-2
-# Using polynomial list
-def printPoly(tx, px):
-    polyStr = "P(x) = "
+# example 115p 응용예제
+# 카톡 친구 자동 삽입하기
 
-    for i in range(len(px)):
-        term = tx[i]  # numbers
-        coef = px[i]  # calculation
+# find and add def section
+def find_add_insert_data(friend, k_count):
+    """
+    Finding itself space and adding an new data in kakaot friends list
+    :param friend: person name
+    :param k_count: number of contacts
+    :return: list of friends contact and number
+    """
+    findPos = -1
+    for i in range(len(katok)):
+        pair = katok[i]
+        if k_count >= pair[1]:
+            findPos = i
+            break
+    if findPos == -1:
+        findPos = len(katok)
 
-        if (coef >= 0):
-            polyStr += "+"
-        polyStr += str(coef) + "x^" + str(term) + " "
+    insert_data(findPos, (friend, k_count))
 
-    return polyStr
+def insert_data(position, name):
+    if position < 0 or position > len(katok):
+        print('Out of space')
+        return
+    katok.append(None)
+    klen = len(katok)
+    for i in range(klen - 1, position, -1):
+        katok[i] = katok[i-1]
+        katok[i -1] = None
 
+    katok[position] = name
 
-def calcPoly(xVal, t_x, p_x):
-    ret_value = 0
-
-    for i in range(len(px)):
-        term = t_x[i]  # 항 차수
-        coef = p_x[i]  # 계수
-        ret_value += coef * xValue ** term
-
-    return ret_value
-
-
-## 전역 변수 선언 부분 ##
-tx = [300, 20, 0]
-px = [3, -4, 5]
-
-## 메인 코드 부분 ##
+# making tuple list for name and number of contact
+katok = [('다현', 200), ('정연', 150), ('쯔위', 90), ('사나', 30), ('지효', 15)]
+# main section
 if __name__ == "__main__":
-    pStr = printPoly(tx, px)
-    print(pStr)
 
-    xValue = int(input("X 값-->"))
-
-    pxValue = calcPoly(xValue, tx, px)
-    print(pxValue)
+    while True:
+        data = input('추가할 친구 -->')
+        count = int(input('연락처 입력-->'))
+        find_add_insert_data(data, count)
+        print(katok)
