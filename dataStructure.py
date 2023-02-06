@@ -1,138 +1,167 @@
 # Circular Linked list
-# Blackpink circular linked list v01.04
-# added find node def
+# 1-100 random maker and put minus if the number is odd
+import random
+
 
 class Node:
-    def __init__(self):
-        self.data = None
+    def __init__(self, data):
+        self.data = data
         self.link = None
 
 
-def printNodes(start):  # printing node
+def print_nodes(start):
     current = start
-    if current.link == None:
+    if current == None :
         return
     print(current.data, end=' ')
-
-    # difference 1
-    while current.link != start:
+    while current.link != start:  #
         current = current.link
         print(current.data, end=' ')
     print()
 
 
-def insertNode(find_data, insert_data):
-    """
-    add data to linked data
-    :param find_data: if its exist
-    :param insert_data: add new data
-    :return: add new data to list
-    """
+def insert_nodes(find_data, insert_data):
     global head, current, pre
-
-    # difference 2
-    if head.data == find_data:  # adding new head node
-        node = Node()
-        node.data = insert_data
+    if head.data == find_data:
+        node = Node(insert_data)
         node.link = head
-        last = head  # last node => head node
-        while last.link != head:  # last node => head then exit
-            last = last.link  # last => next node
-        last.link = node  # last link => new node link
+        last = head
+        while last.link != head:
+            last = last.link
+        last.link = node
         head = node
         return
 
     current = head
-    while current.link != head:  # adding new middle node
+    while current.link != head:
         pre = current
         current = current.link
         if current.data == find_data:
-            node = Node()
-            node.data = insert_data
+            node = Node(insert_data)
             node.link = current
             pre.link = node
             return
 
-    node = Node()  # adding last node
-    node.data = insert_data
+    node = Node(insert_data)
     current.link = node
-    # difference 3
     node.link = head
 
 
-def delete_node(delete_data):
-    """
-    Delete data
-    :param delete_data: data which will be deleted
-    :return: delete the data
-    """
+def delete_nodes(delete_data):
     global head, current, pre
 
-    if head.data == delete_data:  # 첫 번째 노드 삭제
+    if head.data == delete_data:
         current = head
         head = head.link
-        last = head
-        while last.link != current:  # 마지막 노드를 찾으면 반복 종료
-            last = last.link  # last를 다음 노드로 변경
-        last.link = head  # 마지막 노드의 링크에 head가 가리키는 노드 지정
+        last = head  #
+        while last.link != current:  #
+            last = last.link  #
+        last.link = head  #
         del current
         return
 
-    current = head  # 첫 번째 외 노드 삭제
+    current = head
     while current.link != head:
         pre = current
         current = current.link
-        if current.data == delete_data:  # 중간 노드를 찾았을 때
+        if current.data == delete_data:
             pre.link = current.link
             del current
             return
 
 
-def find_node(find_data):
-    """
-    Searching data
-    :param find_data: search data name
-    :return: searched result
-    """
+def find_nodes(find_data):
     global head, current, pre
 
     current = head
     if current.data == find_data:
         return current
-# difference 6
-    while current.link != head:
+
+    while current.link != head:  #
         current = current.link
         if current.data == find_data:
             return current
-    return Node()
+
+    return Node(None)
 
 
-# section for array
+def is_find(find_data):
+    """
+    연결 리스트안에서 원소 존재 여부 판정 함수
+    :param find_data: 찾고자 하는 원소. str
+    :return: 연결 리스트안에서 원소가 존재하면 True리턴 아니면 False
+    """
+
+    global head, current, pre
+
+    current = head
+    if current.data == find_data:
+        return True
+
+    while current.link != head:  #
+        current = current.link
+        if current.data == find_data:
+            return True
+
+    return False
+
+
+def count_odd_even():
+    global head, current
+
+    even, odd = 0, 0
+
+    # SRP 위배
+    # if head == None:
+    #     return False
+
+    current = head
+    while True:
+        if current.data % 2 == 0:
+            even = even + 1
+        else:
+            odd = odd + 1
+        if current.link == head:
+            break
+        current = current.link
+
+    return odd, even
+
+
+def makeSquareNumber(odd, even):
+    if odd > even:
+        remainder = 1
+    else:
+        remainder = 0
+
+    current = head
+    while current.link != head:
+        if current.data % 2 == remainder:
+            current.data = current.data * current.data
+        current = current.link
+    current.data = current.data * current.data
+
 
 head, current, pre = None, None, None
-dataArray = ["Jennie", "Jisoo", "Lisa", "Rose", "Blackpink", 'Miyeon']
+data_array = list()
 
-# Main section
 if __name__ == "__main__":
+    # odd_even = count_odd_even()  # False 리턴
+    for _ in range(7):
+        data_array.append(random.randint(1, 10))
 
-    node = Node()
-    node.data = dataArray[0]  # first node
-
+    node = Node(data_array[0])
     head = node
-    # difference 4
     node.link = head
 
-    for data in dataArray[1:]:
-        # second node
+    for data in data_array[1:]:
         pre = node
-        node = Node()
-        node.data = data
+        node = Node(data)
         pre.link = node
-        # difference 5
         node.link = head
 
-    printNodes(head)
-    delete_node('Miyeon')
-    printNodes(head)
-    print(find_node('Jennie').data)
-    # printing jennie
+    print_nodes(head)
+    odd_even = count_odd_even()
+    print(f'Odd Number : {odd_even[0]}, Even Number {odd_even[1]}')
+    makeSquareNumber(odd_even[0], odd_even[1])
+    print_nodes(head)
