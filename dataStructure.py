@@ -1,6 +1,6 @@
 # Circular Linked list
-# Blackpink circular linked list v01.03
-# added del node def
+# Blackpink circular linked list v01.04
+# added find node def
 
 class Node:
     def __init__(self):
@@ -22,6 +22,12 @@ def printNodes(start):  # printing node
 
 
 def insertNode(find_data, insert_data):
+    """
+    add data to linked data
+    :param find_data: if its exist
+    :param insert_data: add new data
+    :return: add new data to list
+    """
     global head, current, pre
 
     # difference 2
@@ -54,28 +60,51 @@ def insertNode(find_data, insert_data):
     node.link = head
 
 
-
 def delete_node(delete_data):
+    """
+    Delete data
+    :param delete_data: data which will be deleted
+    :return: delete the data
+    """
     global head, current, pre
 
-    if head.data == delete_data:		# 첫 번째 노드 삭제
+    if head.data == delete_data:  # 첫 번째 노드 삭제
         current = head
         head = head.link
         last = head
-        while last.link != current:		# 마지막 노드를 찾으면 반복 종료
-            last = last.link		# last를 다음 노드로 변경
-        last.link = head			# 마지막 노드의 링크에 head가 가리키는 노드 지정
+        while last.link != current:  # 마지막 노드를 찾으면 반복 종료
+            last = last.link  # last를 다음 노드로 변경
+        last.link = head  # 마지막 노드의 링크에 head가 가리키는 노드 지정
         del current
         return
 
-    current = head	                        	# 첫 번째 외 노드 삭제
+    current = head  # 첫 번째 외 노드 삭제
     while current.link != head:
         pre = current
         current = current.link
-        if current.data == delete_data:  	# 중간 노드를 찾았을 때
+        if current.data == delete_data:  # 중간 노드를 찾았을 때
             pre.link = current.link
             del current
             return
+
+
+def find_node(find_data):
+    """
+    Searching data
+    :param find_data: search data name
+    :return: searched result
+    """
+    global head, current, pre
+
+    current = head
+    if current.data == find_data:
+        return current
+# difference 6
+    while current.link != head:
+        current = current.link
+        if current.data == find_data:
+            return current
+    return Node()
 
 
 # section for array
@@ -90,7 +119,7 @@ if __name__ == "__main__":
     node.data = dataArray[0]  # first node
 
     head = node
-# difference 4
+    # difference 4
     node.link = head
 
     for data in dataArray[1:]:
@@ -105,3 +134,5 @@ if __name__ == "__main__":
     printNodes(head)
     delete_node('Miyeon')
     printNodes(head)
+    print(find_node('Jennie').data)
+    # printing jennie
