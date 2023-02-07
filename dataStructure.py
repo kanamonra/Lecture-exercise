@@ -44,13 +44,13 @@ def de_queque():
     if is_queue_empty():
         print('Queue is empty!')
         return None
-    front = (front+1) % SIZE
+    front = (front + 1) % SIZE
     data = queue[front]
     queue[front] = None
     return data
 
 
-SIZE = 5
+SIZE = int(input('Enter queue size: '))
 queue = [None for _ in range(SIZE)]
 front = rear = 0
 
@@ -63,14 +63,17 @@ if __name__ == "__main__":
             data = input("Input data ==> ")
             en_queue(data)
             print("Current Queue : ", queue)
+            print("front: ", front, ",rear", rear)
         elif menu == 'E' or menu == 'e':
             data = de_queque()
             print("Delete data ==> ", data)
             print("Current Queue : ", queue)
+            print("front: ", front, ",rear", rear)
         elif menu == 'V' or menu == 'v':
             data = peek()
             print("View data ==> ", data)
             print("Current Queue : ", queue)
+            print("front: ", front, ",rear", rear)
         else:
             print("Wrong selection")
 
