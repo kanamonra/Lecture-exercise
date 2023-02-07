@@ -1,28 +1,19 @@
-# queue 큐
-# First in first out
+# circular queue 큐
+# making circular queue ex 263p
 
 
 def is_queue_full():
     global SIZE, queue, front, rear
-    if rear != SIZE - 1:
-        return False
-    elif rear == SIZE and front == -1:
+    if (rear + 1) % SIZE == front:
         return True
     else:
-        # loop 3 times for find front does have any empty space after delete
-        for i in range(front + 1, SIZE):
-            queue[i - 1] = queue[i]
-            queue[i] = None
-        front -= 1
-        rear -= 1
         return False
 
 
 def is_queue_empty():
     global SIZE, queue, front, rear
-    if front == -1 and rear == -1:
-        return True
-    elif front == rear:
+# change
+    if front == rear:
         return True
     else:
         return False
@@ -33,7 +24,8 @@ def peek():
     if is_queue_empty():
         print('Queue is empty!')
         return None
-    return queue[front + 1]
+# change
+    return queue[(front + 1) % SIZE]
 
 
 def en_queue(data):
@@ -41,7 +33,9 @@ def en_queue(data):
     if is_queue_full():
         print('Queue is full!')
         return
-    rear += 1
+    # connecting with rear ~ front
+# change
+    rear = (rear+1) % SIZE
     queue[rear] = data
 
 
@@ -50,7 +44,7 @@ def de_queque():
     if is_queue_empty():
         print('Queue is empty!')
         return None
-    front += 1
+    front = (front+1) % SIZE
     data = queue[front]
     queue[front] = None
     return data
@@ -58,7 +52,7 @@ def de_queque():
 
 SIZE = 5
 queue = [None for _ in range(SIZE)]
-front = rear = -1
+front = rear = 0
 
 if __name__ == "__main__":
     print('Please select')
