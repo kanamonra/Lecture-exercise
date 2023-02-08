@@ -1,10 +1,15 @@
 # Chapter 10
-# recursion selfEX
-def factorial(x):
-    if x == 1:
-        return 1
-    else:
-        return x * factorial(x-1)
+# recursion 10.2 ex
+def openBox():
+    global count
+    print("Opening the box \(.˃ ᵕ ˂ )/ ")
+    count -= 1
+    if count == 0:
+        print("Putting the ring inside ฅ^•ﻌ•^ฅ")
+        return
+    openBox()
+    print("Closing the box ૮ ˙Ⱉ˙ ა")
 
-num = int(input('Please enter number for factorial result: '))
-print('The factorial of', num, 'is', factorial(num))
+
+count = 10
+openBox()  # 처음 함수를 다시 호출
