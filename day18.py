@@ -8,6 +8,7 @@ class graph:
 
 
 g1 = graph(4)
+
 g1.graph[0][1] = 1
 g1.graph[0][2] = 1
 g1.graph[0][3] = 1
