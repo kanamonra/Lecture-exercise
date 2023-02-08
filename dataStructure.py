@@ -1,89 +1,82 @@
-# binary tree
-# self exercise -> binary tree -> for shin chan
-# left woman goes, right man goes
-
-class tree_node:
-    def __init__(self):
-        self.data = None
-        self.left = None
-        self.right = None
+# circular queue 큐
+# making circular queue ex 263p
 
 
-node1 = tree_node()
-node1.data = 'Shin chan relationship status'
+def is_queue_full():
+    global SIZE, queue, front, rear
+    if (rear + 1) % SIZE == front:
+        return True
+    else:
+        return False
 
-node2 = tree_node()
-node2.data = 'Family members'
-node1.left = node2
 
-node3 = tree_node()
-node3.data = 'Friends'
-node1.right = node3
+def is_queue_empty():
+    global SIZE, queue, front, rear
+# change
+    if front == rear:
+        return True
+    else:
+        return False
 
-node4 = tree_node()
-node4.data = 'Female members'
-node2.left = node4
 
-node5 = tree_node()
-node5.data = 'Male members'
-node2.right = node5
+def peek():
+    global SIZE, queue, front, rear
+    if is_queue_empty():
+        print('Queue is empty!')
+        return None
+# change
+    return queue[(front + 1) % SIZE]
 
-node6 = tree_node()
-node6.data = 'Female friends'
-node3.left = node6
 
-node7 = tree_node()
-node7.data = 'Male friends'
-node3.right = node7
-
-node8 = tree_node()
-node8.data = 'Nene chan'
-node6.right = node8
-
-node9 = tree_node()
-node9.data = 'Toru kun'
-node7.right = node9
-
-node10 = tree_node()
-node10.data = 'Misae (mom)'
-node4.left = node10
-
-node11 = tree_node()
-node11.data = 'Nohara (dad)'
-node5.right = node11
-
-def preorder(node):
-    if node is None:
+def en_queue(data):
+    global SIZE, queue, front, rear
+    if is_queue_full():
+        print('Queue is full!')
         return
-    print(node.data, end='->')
-    preorder(node.left)
-    preorder(node.right)
+    # connecting with rear ~ front
+# change
+    rear = (rear+1) % SIZE
+    queue[rear] = data
 
 
-def inorder(node):
-    if node is None:
-        return
-    inorder(node.left)
-    print(node.data, end="->")
-    inorder(node.right)
+def de_queque():
+    global SIZE, queue, front, rear
+    if is_queue_empty():
+        print('Queue is empty!')
+        return None
+    front = (front + 1) % SIZE
+    data = queue[front]
+    queue[front] = None
+    return data
 
 
-def postorder(node):
-    if node is None:
-        return
-    postorder(node.left)
-    postorder(node.right)
-    print(node.data, end="->")
+SIZE = int(input('Enter queue size: '))
+queue = [None for _ in range(SIZE)]
+front = rear = 0
 
+if __name__ == "__main__":
+    print('Please select')
+    menu = input("Input data(I)/Eliminate(E)/View(V)/Exit program(X) ==> ")
 
-print('Pre order : ', end='')
-preorder(node1)
-print('Done')
+    while menu != 'X' and menu != 'x':
+        if menu == 'I' or menu == 'i':
+            data = input("Input data ==> ")
+            en_queue(data)
+            print("Current Queue : ", queue)
+            print("front: ", front, ",rear", rear)
+        elif menu == 'E' or menu == 'e':
+            data = de_queque()
+            print("Delete data ==> ", data)
+            print("Current Queue : ", queue)
+            print("front: ", front, ",rear", rear)
+        elif menu == 'V' or menu == 'v':
+            data = peek()
+            print("View data ==> ", data)
+            print("Current Queue : ", queue)
+            print("front: ", front, ",rear", rear)
+        else:
+            print("Wrong selection")
 
-print('In order : ', end='')
-inorder(node1)
-print('Done')
+        menu = input("Input data(I)/Eliminate(E)/View(V)/Exit program(X) ==> ")
 
-print('Post order : ', end='')
-postorder(node1)
-print('Done')
+    print("Thank you")
