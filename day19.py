@@ -11,7 +11,7 @@ def palindrome(pStr):
     return palindrome(pStr[1:len(pStr) - 1])
 
 
-strAry = ["reaver", "kayak", "Borrow or rob", "주유소의 소유주", "야 너 이번주 주번이 너야", "살금 살금"]
+strAry = ["reaver", "kayak", "Borrow or rob", "Lie or iel", "fight and dna th gif"]
 
 
 for testStr in strAry:
